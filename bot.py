@@ -13,7 +13,7 @@ from telegram.ext import (
 )
 import yt_dlp
 
-BOT_TOKEN = os.environ.get("8582129257:AAEVJOF_EWD0uJBwXLAxGPdNVrwwHlQgs6I")
+BOT_TOKEN = "8582129257:AAEVJOF_EWD0uJBwXLAxGPdNVrwwHlQgs6I"
 DOWNLOAD_DIR = "downloads"
 MAX_FILE_SIZE_MB = 50
 FOLLOW_TEXT = "👉 আমাকে ফলো দিন: https://www.facebook.com/share/1BGBVAyguV/"
@@ -27,7 +27,6 @@ os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 def clean_facebook_url(url: str) -> str:
     url = url.strip()
-    # সব ধরনের Facebook লিংক সাপোর্ট
     patterns = [
         r'https?://(www\.|m\.|web\.)?facebook\.com/\S+',
         r'https?://fb\.watch/\S+',
@@ -59,11 +58,6 @@ def download_video(url: str, quality: str = "hd") -> str | None:
         "quiet": True,
         "no_warnings": True,
         "merge_output_format": "mp4",
-        "extractor_args": {
-            "facebook": {
-                "webpage_url_basename": "video",
-            }
-        },
         "http_headers": {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "Accept-Language": "en-US,en;q=0.9",
@@ -143,7 +137,7 @@ async def handle_quality_choice(update: Update, context: ContextTypes.DEFAULT_TY
         os.remove(filepath)
         return
 
-    await status_msg.edit_text(f"📤 আপলোড হচ্ছে...")
+    await status_msg.edit_text("📤 আপলোড হচ্ছে...")
 
     try:
         with open(filepath, "rb") as video_file:
